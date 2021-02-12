@@ -1,13 +1,8 @@
 """
 Program na podstawie podanego ID klienta z Vendo zakłada karte klienta oraz wysyła maila do handlowca oraz klienta
 """
-
-import imaplib
-import email
+import configparser
 from email.header import decode_header
-import webbrowser
-import os
-import re
 from vendoasg.vendoasg import Vendo
 from selenium import webdriver
 from selenium.webdriver import ActionChains
@@ -17,16 +12,19 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from time import sleep
-import random
 
-l = 'j.pawlewski'
-had = 'Jj123456'
+
+config = configparser.ConfigParser()
+config.read('auto_rejestracja.ini')
+
+l = config.get('evolve','user')
+had = config.get('evolve','pass')
 
 
 # połączenie z bazą vendo
-vendoApi = Vendo("http://vendo.asgard.pl:5560")
-vendoApi.logInApi("esklep","e12345")
-vendoApi.loginUser("jpawlewski","jp12345")
+vendoApi = Vendo(config.get('vendo','vendo_API_port'))
+vendoApi.logInApi(config.get('vendo','logInApi_user'),config.get('vendo','logInApi_pass'))
+vendoApi.loginUser(config.get('vendo','loginUser_user'),config.get('vendo','loginUser_pass'))
 
 def clean(text):
     # clean text for creating a folder
@@ -50,7 +48,7 @@ def update_kod(vendo_id,login):
 
 
 def wyslij_maila_z_h(mail_klinta,mail_opiekuna,jezyk_maila):
-  password = r"@Asg%rej189#%"
+  password = config.get('rejestracja','pass')
   mail_sender = 'rejestracja@asgard.gifts'
   mail_reciver = mail_klinta
   #mail_reciver = 'j.pawlewski@asgard.gifts'
@@ -213,7 +211,7 @@ def wyslij_maila_z_h(mail_klinta,mail_opiekuna,jezyk_maila):
   print('Mail wysłany z haslem')
 
 def wyslij_maila_bez_h(mail_klinta,mail_opiekuna,jezyk_maila):
-  password = r"@Asg%rej189#%"
+  password = config.get('rejestracja','pass')
   mail_sender = 'rejestracja@asgard.gifts'
   mail_reciver = mail_klinta
   #mail_reciver = 'j.pawlewski@asgard.gifts'
@@ -364,7 +362,7 @@ def wpisanie_do_bazy_evolve(vendo_id,login,imie,nazwisko):
   #dodaj sprawdzenie czy dany mail jest już zajęty
   jezyk = ''
   typ_maila = ''
-  h = 'Wzwert1x'
+  h = config.get('evolve','defolt_pass')
   evolve_url = 'https://asgard.gifts/admin/'
   klienci_lista_url = 'https://asgard.gifts/admin/userList'
   dodaj_klienta_url = 'https://asgard.gifts/admin/userEdit/0'

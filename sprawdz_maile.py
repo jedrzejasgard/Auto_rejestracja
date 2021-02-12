@@ -12,20 +12,25 @@ from email.mime.text import MIMEText
 import pandas as pd
 import random
 from googletrans import Translator
+import configparser
 from dodaj_klienta_do_evolve import dodaj_klienta
 
+# laduje hasla i delikatne dane
+config = configparser.ConfigParser()
+config.read('auto_rejestracja.ini')
+
 # połączenie z bazą vendo
-vendoApi = Vendo("http://vendo.asgard.pl:5560")
-vendoApi.logInApi("esklep","e12345")
-vendoApi.loginUser("jpawlewski","jp12345")
+vendoApi = Vendo(config.get('vendo','vendo_API_port'))
+vendoApi.logInApi(config.get('vendo','logInApi_user'),config.get('vendo','logInApi_pass'))
+vendoApi.loginUser(config.get('vendo','loginUser_user'),config.get('vendo','loginUser_pass'))
 
 # account credentials
 username = "rejestracja@asgard.gifts"
-password = r"@Asg%rej189#%"
+password = config.get('rejestracja','pass')
 #selenium data
 
-l = 'j.pawlewski'
-h = 'Jj123456'
+l = config.get('evolve','user')
+h = config.get('evolve','pass')
 evolve_url = 'https://asgard.gifts/admin/'
 dodaj_klienta_url = r'https://asgard.gifts/admin/userEdit/0'
 
@@ -36,7 +41,7 @@ def clean(text):
 
 
 def wyslij_maila_obsluga(mail_klinta,problem):
-  password = r"@Asg%rej189#%"
+  password = config.get('rejestracja','pass')
   mail_sender = 'rejestracja@asgard.gifts'
   mail_reciver = 'j.pawlewski@asgard.gifts'
   msg = MIMEMultipart()
@@ -54,7 +59,7 @@ def wyslij_maila_obsluga(mail_klinta,problem):
   print('Mail wysłany')
 
 def wyslij_maila_do_handlowca_haslo_PL(mail_klinta,vendo_id,mail_handlowca):
-  password = r"@Asg%rej189#%"
+  password = config.get('rejestracja','pass')
   mail_sender = 'rejestracja@asgard.gifts'
   #do testów jestem ja ustawiony
   #mail_reciver = mail_handlowca
@@ -75,7 +80,7 @@ def wyslij_maila_do_handlowca_haslo_PL(mail_klinta,vendo_id,mail_handlowca):
 
 
 def wyslij_maila_bez_h(mail_opiekuna, msg_body):
-  password = r"@Asg%rej189#%"
+  password = config.get('rejestracja','pass')
   mail_sender = 'rejestracja@asgard.gifts'
   mail_reciver = 'j.pawlewski@asgard.gifts'
   #mail_opiekuna = [f'{mail_opiekuna}','j.pawlewski@asgard.gifts']
@@ -175,7 +180,7 @@ def zapytanie_do_V(zmienna,dane):
 
 
 def wpisanie_do_bazy_evolve(vendo_id,login,imie,nazwisko):
-  h = 'Wzwert1x'
+  h = config.get('evolve','defolt_pass')
   evolve_url = 'https://asgard.gifts/admin/'
   dodaj_klienta_url = r'https://asgard.gifts/admin/userEdit/0'
   chrome = webdriver.Chrome(r'C:\Users\asgard_48\Documents\chromedriver_win32\chromedriver.exe')
