@@ -111,6 +111,11 @@ def wyslij_maila_z_h(mail_klinta,mail_opiekuna,jezyk_maila):
                   </td>
                 </tr>
                 <tr>
+                  <td style ='text-align: center;'>
+                    <font color="#000066">Logując się do naszego serwisu potwierdzasz, że akceptujesz zapisy <a href="https://asgard.gifts/regulamin-zamowien-online.html"> Regulaminu Zamówień Online </a>oraz <a href="https://asgard.gifts/warunki-wspolpracy.html"> Ogólnych Warunków Współpracy (OWW)</a></font>
+                  </td>            
+                </tr>
+                <tr>
                   <td valign="top"><img src="https://asgard.gifts/www/stopki/tworzenie_kont/re_register_03.jpg" width="800"
                       height="502"></td>
                 </tr>
@@ -186,6 +191,11 @@ def wyslij_maila_z_h(mail_klinta,mail_opiekuna,jezyk_maila):
                           color="#000066"> </font> <br>
                         <br>
                       </td>
+                    </tr>
+                    <tr>
+                      <td style ='text-align: center;'>
+                        <font color="#000066">Logging in indicates you agree with our <a href="https://asgard.gifts/regulamin-zamowien-online.html"> Online Order Regulation </a>and <a href="https://asgard.gifts/warunki-wspolpracy.html"> General Terms of cooperation.</a></font>
+                      </td>            
                     </tr>
                     <tr>
                       <td valign="top"><img src="https://asgard.gifts/www/stopki/tworzenie_kont/re_register_ang_03.jpg"
@@ -271,6 +281,11 @@ def wyslij_maila_bez_h(mail_klinta,mail_opiekuna,jezyk_maila):
                     </font></td>
                 </tr>
                 <tr>
+                  <td style ='text-align: center;'>
+                    <font color="#000066">Logując się do naszego serwisu potwierdzasz, że akceptujesz zapisy <a href="https://asgard.gifts/regulamin-zamowien-online.html"> Regulaminu Zamówień Online </a>oraz <a href="https://asgard.gifts/warunki-wspolpracy.html"> Ogólnych Warunków Współpracy (OWW)</a></font>
+                  </td>            
+                </tr>
+                <tr>
                   <td valign="top"><img src="https://asgard.gifts/www/stopki/tworzenie_kont/re_register_03.jpg" width="800"
                       height="502"></td>
                 </tr>
@@ -336,6 +351,11 @@ def wyslij_maila_bez_h(mail_klinta,mail_opiekuna,jezyk_maila):
                     </td>
                   </tr>
                   <tr>
+                    <td style ='text-align: center;'>
+                      <font color="#000066">Logging in indicates you agree with our <a href="https://asgard.gifts/regulamin-zamowien-online.html"> Online Order Regulation </a>and <a href="https://asgard.gifts/warunki-wspolpracy.html"> General Terms of cooperation.</a></font>
+                    </td>            
+                  </tr>
+                  <tr>
                     <td valign="top"><img src="https://asgard.gifts/www/stopki/tworzenie_kont/re_register_ang_03.jpg"
                         width="800" height="502"></td>
                   </tr>
@@ -372,6 +392,7 @@ def wpisanie_do_bazy_evolve(vendo_id,login,imie,nazwisko):
   chrome.find_element_by_name('uLogin').send_keys(l)
   chrome.find_element_by_name('uPasswd').send_keys(had)
   chrome.find_element_by_xpath('/html/body/div[2]/div[1]/form/button').click()
+
   chrome.get(klienci_lista_url)
   input_box = chrome.find_element_by_xpath('/html/body/div[2]/section[2]/div[4]/div/div/div/div/div[3]/div/table/thead/tr[2]/td[3]/input')
   for character in login:
